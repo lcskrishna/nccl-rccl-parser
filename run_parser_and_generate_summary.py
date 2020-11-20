@@ -35,9 +35,9 @@ def main():
         print ("INFO: Finished dumping all data.")
 
     if args.cuda:
-        nccl_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "nccl-tests")
+        nccl_tests_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "nccl-tests")
         os.system("cp net_unique.sh " + nccl_tests_path)
-        os.chdir(nccl_path)
+        os.chdir(nccl_tests_path)
         if os.system("make"):
             print ("ERROR: Failed to install nccl-unit tests")
             sys.exit(1)
