@@ -29,6 +29,7 @@ Note: To dump out the unique commands use the --unique argument.
 Optional parameters: output-script-name, unique
 
 Here is the usage of the script
+
 ```
 python rccl_nccl_parser.py --nccl-debug-log nccl_debug_log.txt --output-script-name net
 (or)
@@ -44,9 +45,11 @@ Once you dump out the scripts, make sure to copy the script in nccl-tests/rccl-t
 Inside nccl-tests/rccl-tests repository:
 
 ```sh net_unique.sh |& tee rccl_perf_data.txt```
+
 Once you run the above script, the performance data of each command is redirected to a text file. 
 
 **Generate Summary:**
+
 Now the final step is to use the above performance log and generate a summary in the form of CSV file for each of the command. The command gives the average values for each command like Time(us), algBw, busBw (out-of-place and in-place). For pytorch please consider out of place options. 
 
 To generate the summary, navigate to the tool nccl-rccl-parser:
