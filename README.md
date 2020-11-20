@@ -55,7 +55,7 @@ Now the final step is to use the above performance log and generate a summary in
 To generate the summary, navigate to the tool nccl-rccl-parser:
 
 ```
-python generate_summary.py --log-file rccl_perf_data.txt --output-file-name test_app_data--script-file-name net_unique.sh 
+python generate_summary.py --log-file rccl_perf_data.txt --output-file-name test_app_data--script-file net_unique.sh 
 ```
 This dumps out a csv file with performance data for further analysis. 
 
