@@ -92,23 +92,42 @@ def generate_script(commands, output_script):
         fs.write(commands[j])
         fs.write("\n")
     fs.close()
+    print("INFO: Dumped out the commands in a script named: {}".format(output_script))
+
+def dump_counts_map(counts_map, output_file):
+    fs = open(output_file + ".csv", 'w')
+    fs.write("sep=|")
+    fs.write("\n")
+    keys = counts_map.keys()
+    for key in keys:
+        fs.write(key + "|" + str(counts_map[key]))
+        fs.write("\n")
+    fs.close()
+    print ("INFO: Done dumping the count map of each command.")
 
 def get_unique_commands(commands):
     unique_values = []
+    counts_map = {}
     for j in range(len(commands)):
         cmd = commands[j]
         if (cmd not in unique_values):
+            counts_map[cmd] = 1
             unique_values.append(cmd)
-    return unique_values
+        else:
+            counts_map[cmd] = counts_map[cmd] + 1
+    return unique_values, counts_map
 
 def main():
     log_file = os.path.abspath(args.nccl_debug_log)
     nccl_lines = get_useful_info(log_file)
     commands = parse_nccl_log(nccl_lines)
-    generate_script(commands, args.output_script_name)
+    #generate_script(commands, args.output_script_name)
     if (args.unique):
-        new_commands = get_unique_commands(commands)
-        generate_script(new_commands, "net_unique")
+        new_commands, counts_map = get_unique_commands(commands)
+        generate_script(new_commands, args.output_script_name + "_unique")
+        dump_counts_map(counts_map, args.output_script_name + "_counts")
+    else:
+        generate_script(commands, args.output_script_name)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
