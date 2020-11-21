@@ -1,7 +1,8 @@
 # nccl-rccl-parser
 This tool is used for dumping out the rccl-tests/nccl-test commands directly from an application to identify any potential bottlenecks of scaling while using RCCL/NCCL modules when running a distributed applications.
 
-To get started please clone the following repository: https://github.com/lcskrishna/nccl-rccl-parser.git
+To get started please clone the following repository: 
+git clone --recursive https://github.com/lcskrishna/nccl-rccl-parser.git
 
 To run the tests, we use the following repositories:
 
@@ -14,13 +15,33 @@ To run the tests, we use the following repositories:
 
 # How to use the tool:
 
-**Run application and collect RCCL/NCCL Log:**
+### Run application and collect RCCL/NCCL Log:**
 
 Firstly, make sure you are running the experiments of a distributed setup of an application.
 Make sure to run the application for at least 1 iteration using the below two environment variables into a log file named nccl_debug_log.txt
 
 ```NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=INIT,COLL <application> |& tee nccl_debug_log.txt```
 
+
+### Automated way:
+
+To gather the performance results once you have the debug log with you. Run the below command. 
+On CUDA devices, use --cuda argument.
+On ROCm devices, use --rocm argument.
+Note: If you don't mention the arguments the automated script only dumps out the output data from the parser. 
+
+**On ROCm:**
+
+```
+python run_parser_and_generate_summary.py --nccl-debug-log nccl_debug_log.txt --rocm
+```
+
+**On CUDA:**
+
+```
+python run_parser_and_generate_summary.py --nccl-debug-log nccl_debug_log.txt --cuda
+```
+### To run the tool manually step by step:
 
 **Use Parser to dump out the test commands:**
 
