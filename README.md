@@ -26,8 +26,11 @@ Make sure to run the application for at least 1 iteration using the below two en
 ### Automated way:
 
 To gather the performance results once you have the debug log with you. Run the below command. 
+
 On CUDA devices, use --cuda argument.
+
 On ROCm devices, use --rocm argument.
+
 Note: If you don't mention the arguments the automated script only dumps out the output data from the parser. 
 
 **On ROCm:**
